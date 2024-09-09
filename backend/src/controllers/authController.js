@@ -1,3 +1,4 @@
+import generateTokenAndSetCookie from "../../utils/generateToken.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
@@ -38,6 +39,8 @@ export const signUpUser = async(req, res) => {
           gender,
           profilePic: gender === "male" ? boyProfile : girlProfile,
         });
+
+        generateTokenAndSetCookie(newUser._id,res);
     
         res.status(201).json({
           _id: newUser._id,
