@@ -8,7 +8,7 @@ import connectToMongoDB from "./src/db/connectMongoDB.js";
 // import Routes
 import authRoutes from './src/routes/authRoutes.js';
 import messageRoutes from './src/routes/messageRoutes.js'
-import conversationRoutes from './src/routes/conversationRoutes.js'
+import userRoutes from './src/routes/userRoutes.js'
 
 dotenv.config();
 
@@ -21,7 +21,7 @@ app.use(cookieParser()); // to parse the incoming cookies from req.cookies
 
 app.use("/api/auth",authRoutes);
 app.use("/api/messages",messageRoutes);
-app.use("/api/conversation",conversationRoutes);
+app.use("/api/users",userRoutes);
 
 // app.get("/",(req,res)=>{
 //     res.send("Route Working!");
