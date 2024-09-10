@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 //MongoDb connection
 import connectToMongoDB from "./src/db/connectMongoDB.js";
@@ -16,9 +17,10 @@ const PORT = process.env.PORT || 3000;
 
 
 app.use(express.json()); // to parse incoming request with JSON payloads (from req.body)
+app.use(cookieParser()); // to parse the incoming cookies from req.cookies
 
 app.use("/api/auth",authRoutes);
-app.use("/api/message",messageRoutes);
+app.use("/api/messages",messageRoutes);
 app.use("/api/conversation",conversationRoutes);
 
 // app.get("/",(req,res)=>{
@@ -28,5 +30,4 @@ app.use("/api/conversation",conversationRoutes);
 app.listen(PORT,()=>{
     connectToMongoDB();
     console.log(`Server is running on ${PORT}`);
-
 });
