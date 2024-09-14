@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
+import toast from 'react-hot-toast'
 
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,8 @@ const useLogout = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
+
+      const data = await res.json();
 
       if (data.error) throw new Error(data.error);
 
