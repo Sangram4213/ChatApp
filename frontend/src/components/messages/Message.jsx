@@ -1,20 +1,36 @@
 import React from "react";
+import { useAuthContext } from "../../context/AuthContext";
+import useConversation from "../../../store/useConversation";
 
-const Message = () => {
+const Message = ({message}) => {
+ const{authUser}= useAuthContext();
+
+const {selectedConversation} = useConversation();
+
+const fromMe = message.senderId === authUser._id;
+
+const chatClassName = fromMe ? 'chat-end' : 'chat-start';
+
+const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+
+const bubbleBgColor = fromMe ? 'bg-blue-500' : '';
+
+
+
   return (
-    <div className="chat chat-end">
+    <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS chat bubble component"
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fuser-avatar&psig=AOvVaw2TI1JjqEQKB_1gz549UYPi&ust=1726061357081000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNj0p-K9uIgDFQAAAAAdAAAAABAE"
+            src={profilePic}
           />
         </div>
       </div>
       <div
-        className={`chat-bubble text-white bg-blue-500 pb-2`}
+        className={`chat-bubble text-white pb-2 ${bubbleBgColor}`}
       >
-        Hi ! What is up??
+      {message.message}
       </div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
        12:42
